@@ -264,7 +264,7 @@ li::marker { color: var(--text-faint); }
 /* ---------- Empty state (writing page before the first post) ---------- */
 .empty { text-align: center; color: var(--text-muted); margin: 24px 0; }
 
-/* ---------- Tools figure (Hairline "stack") ---------- */
+/* ---------- Tools figure (Hairline "shelf") ---------- */
 :root {
   --hairline-plate: var(--bg);
   --hairline-hi: var(--accent);

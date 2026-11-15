@@ -14,7 +14,7 @@ window.hairline = function (figure) {
   stage.setAttribute("aria-label", figure.means);
   var svg = HL.mk("svg", { viewBox: "0 0 400 320", "aria-hidden": "true" }, stage);
   var read = {
-    set textContent(v) { if (label) label.textContent = v === "rest" ? "hover a layer" : v; },
+    set textContent(v) { if (label) label.textContent = v === "rest" ? "hover a card" : v; },
   };
   figure.mount({ stage: stage, svg: svg, read: read }, figure.range[1]);
   read.textContent = "rest";
