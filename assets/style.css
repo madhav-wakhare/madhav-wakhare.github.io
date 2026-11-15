@@ -263,3 +263,46 @@ li::marker { color: var(--text-faint); }
 
 /* ---------- Empty state (writing page before the first post) ---------- */
 .empty { text-align: center; color: var(--text-muted); margin: 24px 0; }
+
+/* ---------- Tools figure (Hairline "stack") ---------- */
+:root {
+  --hairline-plate: var(--bg);
+  --hairline-hi: var(--accent);
+  --hairline-edge: #6b7279;
+  --hairline-mid: #434a50;
+  --hairline-lo: #363d42;
+}
+@media (prefers-color-scheme: light) {
+  :root {
+    --hairline-edge: #a4a4ac;
+    --hairline-mid: #c3c3c9;
+    --hairline-lo: #e0e0e4;
+  }
+}
+.tools { margin-top: 3em; padding-top: 2em; border-top: 1px solid var(--border); }
+.tools-sub { margin: 0 0 1em; color: var(--text-muted); }
+.tool-figure {
+  position: relative;
+  margin: 0 auto;
+  max-width: 520px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.tool-stage { cursor: crosshair; }
+.tool-read {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  z-index: 1;
+  font: 12px/1 ui-monospace, "SF Mono", Menlo, monospace;
+  color: var(--accent);
+  pointer-events: none;
+}
+.tool-figure figcaption {
+  padding: 10px 14px;
+  border-top: 1px solid var(--border);
+  color: var(--text-faint);
+  font-size: 13px;
+  text-align: center;
+}

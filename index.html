@@ -53,6 +53,16 @@
         </ul>
       </aside>
     </div>
+
+    <section class="tools">
+      <h2>Tools</h2>
+      <p class="tools-sub">The stack I work in, from the OS up to observability. Hover a layer.</p>
+      <figure class="tool-figure">
+        <span class="tool-read" data-hairline-read>hover a layer</span>
+        <div class="tool-stage" data-hairline-host="stack"></div>
+        <figcaption>Linux &middot; Docker &middot; Kubernetes &middot; AWS &middot; Azure &middot; SigNoz / OpenTelemetry</figcaption>
+      </figure>
+    </section>
   </main>
 
   <footer class="site-footer">
@@ -64,5 +74,8 @@
     </span>
   </footer>
   <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+  <script src="assets/hairline/kernel.js" defer></script>
+  <script src="assets/hairline/host.js" defer></script>
+  <script src="assets/hairline/stack.js" defer></script>
 </body>
 </html>
