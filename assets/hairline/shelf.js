@@ -11,7 +11,7 @@ const {
   tdone, tset, tval, tween, disposer, mk, place, pointer, reflect, register,
 } = HL;
 
-const N = 6, W = 84, H = 54, G = 15, TW = 22, TH = 7, TABS = [6, 31, 56], TK = 1.4;
+const N = 6, W = 84, H = 54, G = 21, TW = 22, TH = 7, TABS = [6, 31, 56], TK = 1.4;
 const REST = -12, BACK = -24, FWD = 20, LIFT = 18;
 const TOOLS = ["linux", "docker", "kubernetes", "aws", "azure", "signoz · otel"];
 const X0 = -5, X1 = W + 5, Y0 = -9, Y1 = (N - 1) * G + 9, WH = 20, WR = 6, WT = 2.4;
@@ -75,8 +75,7 @@ const ICONS = [
    [[[0.42, 0.59], [0.58, 0.21]], false],
    [[[-0.02, 0.12], [-0.48, -0.92]], false], [[[-0.02, 0.12], [0.44, -0.92]], false], [[[-0.02, 0.12], [-0.02, -0.92]], false]],
 ];
-const IC = { u: W / 2, v: 32, s: 10 };
-
+const IC = { u: W / 2, v: H - 10, s: 6.5 };
 /** Card i, back to front: its number (6 at the back), which of three tab positions it takes, and its filleted outline, upright in its own plane. */
 function card(i) {
   const n = N - i, t0 = TABS[(N - 1 - i) % 3];
@@ -86,7 +85,6 @@ function card(i) {
   );
   return { n, t0, shape };
 }
-
 /** Card i leaning th degrees (negative leans back) and lifted by `lift`: its paths, and where its eight punches sit. */
 function pose(P, i, n, t0, shape, th, lift) {
   const yb = i * G, s = Math.sin(rad(th)), c = Math.cos(rad(th));
@@ -97,7 +95,7 @@ function pose(P, i, n, t0, shape, th, lift) {
   return {
     back: poly(shape.map((p) => wb(p[0], p[1]))),
     face: poly(shape.map((p) => w(p[0], p[1]))),
-    head: seg(w(6, H - 6), w(W - 6, H - 6)),
+    head: seg(w(6, H - 2.5), w(W - 6, H - 2.5)),
     rules: ICONS[n - 1].map(([pts, closed]) => (closed ? poly : open)(pts.map(([x, y]) => w(IC.u + x * IC.s, IC.v + y * IC.s)))).join(""),
     punch,
   };
@@ -108,7 +106,7 @@ function mount({ stage, svg, read }, value) {
   let stag = value;
 
   // The camera is fitted to the tray with a card lifted, so nothing leaves the frame in any pose.
-  const C = Cam(45, 0.5, 1.62);
+  const C = Cam(45, 0.5, 1.45);
   fit(C, [[X0, Y0, 0], [X1, Y1, -8], [X1, Y0, 0], [X0, Y1, 0], [X0, Y0, H + TH], [X1, Y0, H + TH + LIFT]], 200, 166);
   const P = proj(C), front = facing(C);
   const outer = rrect(X0, Y0, X1, Y1, WR, 6), inner = rrect(X0 + WT, Y0 + WT, X1 - WT, Y1 - WT, WR - WT, 6);
@@ -155,14 +153,16 @@ function mount({ stage, svg, read }, value) {
     cd.punch.forEach((el, k) => place(el, q.punch[k]));
   }
 
+  // Hover intent: take a new card only after the pointer stays on it, so a sweep doesn't flick every card.
+  const HOLD = 120, HOLD_OUT = 180; let want = -1, wantAt = 0, act = -1;
   const B = register(stage, (_dt, now) => {
     let moving = false;
+    if (want !== act && now - wantAt >= (want < 0 ? HOLD_OUT : act < 0 ? 40 : HOLD)) setActive(want);
     cards.forEach((cd, i) => { draw(i, tval(cd.a, now), tval(cd.z, now)); if (!tdone(cd.a, now) || !tdone(cd.z, now)) moving = true; });
-    return moving;
+    return moving || want !== act;
   });
   bag.add(B.unregister);
 
-  let act = -1;
   const caption = (a) => (a < 0 ? "rest" : TOOLS[N - 1 - a]);
   /** Pulls card a (-1 puts them all back). The stagger spreads out from the card pulled, or the one let go. */
   function setActive(a) {
@@ -176,10 +176,10 @@ function mount({ stage, svg, read }, value) {
       cd.face.classList.toggle("hi", i === a); cd.head.classList.toggle("hi", i === a); cd.rules.classList.toggle("hi", i === a); cd.punch[cd.n - 1].classList.toggle("m", i !== a);
     });
     read.textContent = caption(a);
-    B.wake();
   }
 
-  bag.add(pointer(stage, { move: (p) => setActive(hit(p)), leave: () => setActive(-1) }));
+  const aim = (a) => { if (a !== want) { want = a; wantAt = performance.now(); B.wake(); } };
+  bag.add(pointer(stage, { move: (p) => aim(hit(p)), leave: () => aim(-1) }));
   bag.add(() => svg.replaceChildren());
 
   return {
@@ -193,6 +193,6 @@ hairline({
   means: "Six tools filed in a tray, Linux to observability: the card under the pointer stands up, its neighbours lean away.",
   rules: [1, 2, 8],
   range: [0, 40, 90],
-  tour: [[160, 160], [200, 120], [280, 120], null],
+  tour: [[157, 154], [179, 143], [201, 132], [222, 122], [244, 111], [265, 100]],
   mount,
 });
