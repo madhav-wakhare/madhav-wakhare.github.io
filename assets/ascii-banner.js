@@ -1,5 +1,5 @@
 /*
- * ASCII banner: redraws assets/banner-girl.png as coloured blocks of
+ * ASCII banner: redraws assets/banner-girl.webp as coloured blocks of
  * monospace characters, cropped to the bangs and eyes.
  * Each cell takes the average colour of the pixels under it; the glyph is
  * picked from brightness and edge direction, so hair reads as | strokes and
@@ -10,7 +10,7 @@
   if (!canvas) return;
   const ctx = canvas.getContext("2d");
 
-  const SRC = canvas.dataset.asciiBanner || "assets/banner-girl.png";
+  const SRC = canvas.dataset.asciiBanner || "assets/banner-girl.webp";
   const FOCUS = { x: 0.47, y: 0.42 };   // point kept in view (between bangs and eyes), 0..1 of the image
   const SPAN = 0.56;                    // share of the image width shown on a wide banner
   const CW = 5, CH = 7;                 // cell size in CSS pixels
@@ -26,7 +26,7 @@
 
   const img = new Image();
   img.src = SRC;
-  img.onload = () => { render(); window.addEventListener("resize", render); };
+  img.onload = () => { render(); canvas.classList.add("ready"); window.addEventListener("resize", render); };
 
   function render() {
     const w = canvas.clientWidth, h = canvas.clientHeight;

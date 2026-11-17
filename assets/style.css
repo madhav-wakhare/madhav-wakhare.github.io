@@ -325,3 +325,5 @@ li::marker { color: var(--text-faint); }
   background: #14181c;
 }
 @media (max-width: 640px) { .ascii-banner { height: 130px; } }
+.ascii-banner { transition: opacity var(--slow) var(--ease); }
+.ascii-banner:not(.ready) { opacity: 0.6; }

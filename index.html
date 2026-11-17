@@ -7,6 +7,7 @@
   <meta name="description" content="Madhav Wakhare: Site Reliability Engineer building pragmatic cloud-native infrastructure.">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <link rel="preload" href="assets/banner-girl.webp" as="image" type="image/webp">
   <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
@@ -19,7 +20,8 @@
     </nav>
   </header>
 
-  <div class="hero">
+  <div class="hero hero-banner">
+    <canvas class="ascii-banner" data-ascii-banner aria-hidden="true"></canvas>
     <h1>Madhav Wakhare</h1>
     <p>I build pragmatic cloud-native infrastructure that ships faster, costs less, and stays secure.</p>
   </div>
@@ -76,6 +78,7 @@
     </span>
   </footer>
   <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+  <script src="assets/ascii-banner.js" defer></script>
   <script src="assets/hairline/kernel.js" defer></script>
   <script src="assets/hairline/host.js" defer></script>
   <script src="assets/hairline/shelf.js" defer></script>
