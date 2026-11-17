@@ -306,3 +306,8 @@ li::marker { color: var(--text-faint); }
   font-size: 13px;
   text-align: center;
 }
+
+/* ---------- Admired blogs (Writing page) ---------- */
+.admired { margin-top: 2.4em; }
+.admired-sub { margin: 0 0 0.8em; color: var(--text-muted); font-size: 0.94em; }
+.posts .src { margin-left: 6px; color: var(--text-faint); font-size: 0.9em; }
