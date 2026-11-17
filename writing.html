@@ -19,7 +19,8 @@
     </nav>
   </header>
 
-  <div class="hero">
+  <div class="hero hero-banner">
+    <canvas class="ascii-banner" data-ascii-banner aria-hidden="true"></canvas>
     <h1>Writing</h1>
     <p>Notes on SRE, DevOps and cloud infrastructure.</p>
   </div>
@@ -50,5 +51,6 @@
     </span>
   </footer>
   <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+  <script src="assets/ascii-banner.js" defer></script>
 </body>
 </html>

@@ -311,3 +311,17 @@ li::marker { color: var(--text-faint); }
 .admired { margin-top: 2.4em; }
 .admired-sub { margin: 0 0 0.8em; color: var(--text-muted); font-size: 0.94em; }
 .posts .src { margin-left: 6px; color: var(--text-faint); font-size: 0.9em; }
+
+/* ---------- ASCII banner (Writing page) ---------- */
+.hero-banner { padding-top: 32px; }
+.ascii-banner {
+  display: block;
+  width: 100%;
+  max-width: 760px;
+  height: 200px;
+  margin: 0 auto 28px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: #14181c;
+}
+@media (max-width: 640px) { .ascii-banner { height: 130px; } }
